@@ -1,0 +1,104 @@
+-------------------------l?y s?n ph?m t? wp--------------------------
+
+var Index = 0;
+var links = [];
+var Product_Image_URL = [];
+var title = [];
+jQuery('.woocommerce-loop-product__link').each(function(){
+links.push(jQuery(this).attr('href'));
+})
+function getProductInFo(data){
+jQuery(data).find('.woocommerce-loop-product__title').each(function(){
+title.push(jQuery(this).html() + '<br>');
+});
+jQuery(data).find('.woocommerce-product-gallery__image').each(function(){
+Product_Image_URL.push(jQuery(this).find('img').attr('src')+'<br>');
+})
+if(Index = 1){
+jQuery('body').empty();
+jQuery('body').append(title);
+jQuery('body').append(Product_Image_URL)
+}
+}
+
+jQuery.each(links,function(k,v){
+if(k = links.length - 1){
+Index = 1;
+}
+jQuery.ajax({
+url: v,
+context: document.body
+}).done(function(data) {
+getProductInFo(data);
+});
+})
+
+-------------------------------l?y sp t? prestashop----------------------------------
+var Index = 0;
+var links = [];
+var Product_Image_URL = [];
+var title = [];
+jQuery('.product-thumbnail').each(function(){
+links.push(jQuery(this).attr('href'));
+})
+function getProductInFo(data){
+jQuery(data).find('.product-title').each(function(){
+title.push(jQuery(this).html() + '<br>');
+});
+jQuery(data).find('.product-thumbnail img').each(function(){
+Product_Image_URL.push(jQuery(this).attr('src')+'<br>');
+})
+if(Index = 1){
+jQuery('body').empty();
+jQuery('body').append(title);
+jQuery('body').append(Product_Image_URL)
+}
+}
+
+jQuery.each(links,function(k,v){
+if(k = links.length - 1){
+Index = 1;
+}
+jQuery.ajax({
+url: v,
+context: document.body
+}).done(function(data) {
+getProductInFo(data);
+});
+})
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+var Index = 0;
+var links = [];
+var Product_Image_URL = [];
+var description = [];
+jQuery('.woocommerce-loop-product__link').each(function(){
+   links.push(jQuery(this).attr('href'));
+})
+function getProductInFo(data){
+	description.push(jQuery(data).find('.woocommerce-Tabs-panel--description').html());
+    jQuery(data).find('.woocommerce-product-gallery__image').each(function(){
+		Product_Image_URL.push(jQuery(this).find('img').attr('src')+'<br>');
+	})
+if(Index = 1){
+jQuery('body').empty();
+jQuery('body').append(description);
+jQuery('body').append(Product_Image_URL)
+}
+}
+
+jQuery.each(links,function(k,v){
+   if(k = links.length - 1){
+	Index = 1;
+   }
+   jQuery.ajax({
+     url: v,
+     context: document.body
+   }).done(function(data) {
+     getProductInFo(data);
+   });
+})
+
+
