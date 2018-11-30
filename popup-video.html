@@ -1,0 +1,124 @@
+
+<div class="page-width">
+  <div class="wrap-video" style="position: relative;">
+    <div style="position: absolute; top: 50%; left: 50%; z-index: 1;">
+      <div class="section-header">
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+      <a onclick="changeVideo('{%if  section.settings.video_url.id != blank %}{{section.settings.video_url.id}}{% else %}_9VUPq3SxOc{% endif %}')"><i class="fa fa-play"></i></a>
+    </div>
+    {% if section.settings.image != blank %}
+    {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+    <div style="padding-top:{{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100}}%;">
+      <img id="{{ img_id }}"
+           class="custom__image lazyload js"
+           src="{{ section.settings.image | img_url: '300x300' }}"
+           data-src="{{ img_url }}"
+           data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+           data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+           data-sizes="auto"
+           alt="{{ section.settings.image.alt | escape }}"             
+           >
+    </div>
+    <noscript>
+      {% capture image_size %}{{ max_height }}x{% endcapture %}
+      {{ section.settings.image | img_url: image_size, scale: 2, crop: 'top' | img_tag: section.settings.image.alt, 'custom__image' }}
+    </noscript>
+    {% else %}
+    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModalvideo" class="modal fade myClassModal {% if section.settings.video_url.type == "youtube" %}youtube{% elsif  section.settings.video_url.type == "vimeo" %}vimeo{% endif %}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      
+        {% if section.settings.video_url == blank %}
+        <iframe id="iframeYoutube" src="//www.youtube.com/embed/_9VUPq3SxOc?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {% else %}
+        {% if section.settings.video_url.type == "youtube" %}
+        <iframe id="iframeYoutube" src="//www.youtube.com/embed/{{ section.settings.video_url.id }}?rel=0&showinfo=0&vq=720" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {% endif %}
+        {% if section.settings.video_url.type == "vimeo" %}
+        <iframe id="iframeVimeo" src="//player.vimeo.com/video/{{ section.settings.video_url.id }}?byline=0&portrait=0&badge=0" width="850" height="480" frameborder="0" allowfullscreen></iframe>
+        {% endif %}
+        {% endif %}
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Popup video",
+    "settings": [	
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Heading"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "video_url",
+        "id": "video_url",
+        "label": "YouTube or Vimeo link",
+        "accept": ["youtube", "vimeo"]
+      }
+	],
+    "presets": [
+      {
+        "name": "Popup video",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+$(document).ready(function(){
+$("#myModalvideo").on("hidden.bs.modal",function(){
+  if($(".myClassModal").hasClass('youtube')){
+    $("#iframeYoutube").attr("src","#");
+  }else{
+    $("#iframeVimeo").attr("src","#");
+  }
+});
+});
+
+function changeVideo(vId){
+if($('.myClassModal').hasClass('youtube')){
+  
+    
+  console.log(vId);
+  
+  var iframe=document.getElementById("iframeYoutube");
+  
+  
+  iframe.src="https://www.youtube.com/embed/"+vId;
+  $("#myModalvideo").modal("show");
+  
+}else if($('.myClassModal').hasClass('vimeo')){
+  
+  var iframe=document.getElementById("iframeVimeo");
+  iframe.src="https://player.vimeo.com/video/"+vId;
+  $("#myModalvideo").modal("show");
+}
+}
+{% endjavascript %}
