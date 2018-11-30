@@ -55,12 +55,22 @@
   </div>
 </div>
 
-
+<style>
+  .myClassModal .modal-dialog{
+    max-width: 880px;
+  }
+  .iframeYoutube, .iframeVimeo{
+    width: 100%;
+  }
+  {% if section.settings.customcss != blank %}
+    {{section.settings.customcss}}
+  {% endif %}
+</style>
 
 {% schema %}
   {
     "name": "Popup video",
-    "settings": [	
+    "settings": [ 
       {
         "type": "text",
         "id": "heading",
@@ -77,8 +87,13 @@
         "id": "video_url",
         "label": "YouTube or Vimeo link",
         "accept": ["youtube", "vimeo"]
+      },
+    {
+        "type": "textarea",
+        "id": "customcss",
+        "label": "Custom css"
       }
-	],
+  ],
     "presets": [
       {
         "name": "Popup video",
