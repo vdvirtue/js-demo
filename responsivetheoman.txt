@@ -1,0 +1,12 @@
+công th?c tính widht và fontsize d? responsive
+Theo ví d? ta có X = 0.4375 và Y = 160 --> calc(43.75vw + 160px)
+gi?i h? pt : 
+19.2X + Y = [height man 1920]
+3.2X + Y = [height man 320] 
+
+v?i fontsize:
+
+19.2X + Y = fontsize màn 1920
+3.2x + Y = fontsize màn 320
+
+https://keisan.casio.com/exec/system/14013211335541
