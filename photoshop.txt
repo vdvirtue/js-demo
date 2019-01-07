@@ -1,0 +1,3 @@
+chèn ?nh vào khung(layer ?nh trên , khung du?i): c1: alt + click vào line gi?a 2 layer
+					         c2 (ch?n layer ?nh): alt + ctrl + G
+                                                 c3: ch?n chu?t ph?i vào layer ?nh -> ch?n create cliping math
